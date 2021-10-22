@@ -22,7 +22,7 @@ def main():
     for i in range(1, max_number):
         if isPrime(i):
             counter +=1
-            print(Fore.RED + Back.YELLOW + Style.BRIGHT + "Number " + str(i) + " is prime." + Style.RESET_ALL)
+            print(Fore.RED + Back.YELLOW + Style.BRIGHT + "Number " + Fore.LIGHTMAGENTA_EX + Back.CYAN + Style.DIM + str(i) + Fore.RED + Back.YELLOW + Style.BRIGHT + " is prime." + Style.RESET_ALL)
         else:
             print("Number " + str(i) + " is not prime")
 
