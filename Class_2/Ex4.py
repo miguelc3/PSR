@@ -1,58 +1,83 @@
 #!/usr/bin/python3
 
-from colorama import Fore, Back, Style
-import argparse
+'''
+Miguel Pereira, nº88731
+PSR 21/22
+Part_2
+Ex.4
+'''
+
 import readchar
+from colorama import Fore, Back, Style
 
-def printAllCharsUp(stop_char):
-
-    print('Printing all values up to stop_char ' + str(stop_char))
-    for i in range(ord(' '), ord(stop_char)+1):
+# a)
+def printAllCharsUpTo(stop_char):
+    # function ord gives the number of a giver character on the ascii table
+    print('Printing all values from space to ' + str(stop_char))
+    for i in range(ord(' '),ord(stop_char)+1):
+        # function chr returns the character from an integer of the ascii table
         print(chr(i))
 
+# b)
 def readAllUpTo(stop_key):
-    # ask for all the entries and put them in a list
-    pressed_keys = [] # empty list to start with
+
+    print('Type something (X to stop)')
+
+    pressed_key = readchar.readkey()
+    while pressed_key != stop_key:
+        pressed_key = readchar.readkey()
+        print('Thank you for typing ' + pressed_key )
+
+    print('You pressed ' + stop_key + '. Terminating')
+
+    # Another way to do the exercise is to use While true:
+    '''
     while True:
-        print('Type something (X to stop)')
+        pressed_key = readchar.readkey()
+
+        
+        if pressed_key == stop_key:
+            print('You typed ' + stop_key + '. Terminating.')
+            break
+        else:
+            print('Thank you for typing ' + pressed_key )
+    '''
+
+# c)
+def countNumbersUpTo(stop_key):
+    print('Type something (X to stop)')
+
+    tot_numbers = 0
+    tot_others= 0
+
+    while True:
         pressed_key = readchar.readkey()
 
         if pressed_key == stop_key:
-            print('You typed ' + Fore.RED + Style.BRIGHT + pressed_key + Style.RESET_ALL + ' terminating.')
+            print('You typed ' + stop_key + '. Terminating.')
             break
         else:
-            #print('Thank you for typing ' + Fore.RED + Style.BRIGHT + pressed_key + Style.RESET_ALL)
-            pressed_keys.append(pressed_key)
+            print('Thank you for typing ' + Fore.RED + Style.BRIGHT + pressed_key + Style.RESET_ALL)
+            if pressed_key.isnumeric():
+                tot_numbers +=1
+            else:
+                tot_others +=1
 
-    print('The keys you pressed are: ' + str(pressed_keys))
-
-    # Analyse the list and count
-    count_pressed_numbers = 0
-    count_pressed_others = 0
-    pressed_numbers = []
-    pressed_others = []
-    pressed_others_dict = {}
-
-    for pressed_key in pressed_keys:
-        if str.isnumeric(pressed_key):
-            count_pressed_numbers +=1
-            pressed_numbers.append(pressed_key)
-        else:
-            count_pressed_others +=1
-            pressed_others.append(pressed_key)
-
-    print('You entered ' + str(count_pressed_numbers) + ' numbers: ' + str(pressed_numbers) )
-    print('You entered ' + str(count_pressed_others) + ' others: ' + str(pressed_others))
-
+    print('You pressed ' + Fore.BLUE + Style.BRIGHT + str(tot_numbers) + Style.RESET_ALL + ' numbers')
+    print('You pressed ' + Fore.BLUE + Style.BRIGHT + str(tot_others) + Style.RESET_ALL + ' others')
 
 def main():
-    # Ex4a
-    # print('Give me the stop char ...')
+
+    # a)
+    # print('Give me the stop char: ')
     # pressed_char = readchar.readchar()
     # printAllCharsUpTo(pressed_char)
 
-    # Ex4b
-    readAllUpTo('X')
+    # b)
+    # readAllUpTo('X')
+
+    # c)
+    # countNumbersUpTo('X')
 
 if __name__ == '__main__':
     main()
