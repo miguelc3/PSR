@@ -3,6 +3,7 @@
 from colorama import Fore,  Back, Style
 import argparse
 
+
 def isPrime(value):
     print("\nReference Number " + str(value))
 
