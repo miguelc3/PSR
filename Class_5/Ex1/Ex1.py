@@ -8,7 +8,7 @@ def main():
 
     cv2.imshow('window', image)  # Display the image
 
-    image_bright = image + 20 # Increase brightness
+    image_bright = image + 20  # Increase brightness
     cv2.imshow('window2', image_bright)
 
     print(type(image))
