@@ -10,6 +10,7 @@ drawing = False
 
 def draw(event, x, y, flags, param, color):
 
+    #drawing = False
     global drawing
 
     if event == cv.EVENT_LBUTTONDOWN:
@@ -35,7 +36,7 @@ def main():
           'Starting to paint black \n')
 
     # Create a white image
-    image_white = np.zeros([600, 400, 3], dtype=np.uint8)
+    image_white = np.zeros([400, 600, 3], dtype=np.uint8)
     image_white.fill(255)
 
     window_name = 'White sheet'
