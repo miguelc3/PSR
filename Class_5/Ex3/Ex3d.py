@@ -6,6 +6,7 @@ import argparse
 from functools import partial
 import json
 
+
 def trackbar(val, window, image, limits):
     mins = np.array([limits['R']['min'], limits['G']['min'], limits['B']['min']])
     maxs = np.array([limits['R']['max'], limits['G']['max'], limits['B']['max']])
