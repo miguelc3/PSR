@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 import cv2
 import cv2 as cv
 import numpy as np
@@ -10,7 +11,6 @@ drawing = False
 
 def draw(event, x, y, flags, param, color):
 
-    #drawing = False
     global drawing
 
     if event == cv.EVENT_LBUTTONDOWN:
