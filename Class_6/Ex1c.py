@@ -6,20 +6,20 @@ import numpy as np
 from functools import partial
 
 # Global variable
-drawing = False
+drawing_mouse = False
 
 
 def draw(event, x, y, flags, param, color):
 
-    global drawing
+    global drawing_mouse
 
     if event == cv.EVENT_LBUTTONDOWN:
-        drawing = True
+        drawing_mouse = True
         print('Started painting at: (x, y) = ' + str(x) + ', ' + str(y))
         param[y, x] = color
 
     elif event == cv.EVENT_MOUSEMOVE:
-        if drawing:
+        if drawing_mouse:
             param[y, x] = color
 
     elif event == cv.EVENT_LBUTTONUP:
