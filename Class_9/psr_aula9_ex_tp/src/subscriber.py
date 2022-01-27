@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import rospy
-from psr_aula8_ex4.msg import Dog
+from psr_aula9_ex_tp.msg import Dog
 
 
 def callback(msg):
@@ -14,8 +14,8 @@ def main():
     # INITIALIZATION
     # ---------------------------------------------------
 
-    rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber('politics', Dog, callback)
+    rospy.init_node('subscriber', anonymous=True)
+    rospy.Subscriber('chatter', Dog, callback)
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

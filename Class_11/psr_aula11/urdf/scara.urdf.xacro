@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+
+<robot name="myscara" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <!--  Variables in xacro -->
+    <xacro:property name="height" value="0.5" />
+
+
+<!--  Define materials - Colors -->
+ <material name="blue">
+    <color rgba="0 0 0.8 0.5"/>
+  </material>
+
+  <material name="yellow">
+    <color rgba="0.8 0.8 0 0.5"/>
+  </material>
+
+    <material name="red">
+    <color rgba="0.8 0 0 0.5"/>
+  </material>
+
+    <material name="green">
+    <color rgba="0 0.8 0 0.5"/>
+  </material>
+
+
+<!--  Base link-->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 ${height/2}" />
+      <geometry>
+        <cylinder length="${height}" radius="0.2"/>
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+<!--  Link 1-->
+  <link name="link1">
+    <visual>
+      <origin xyz="1 0 -0.25" />
+      <geometry>
+        <box size="2.0 0.4 0.5"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+<!--  Just  to draw the cylinder part of link1-->
+  <link name="link1_visual">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.5" radius="0.2"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <!--  Junta link1 <-> link1_ visual-->
+  <joint name="link1_to_link1_visual" type="fixed">
+    <origin xyz="0 0 -0.25"/>
+    <parent link="link1"/>
+    <child link="link1_visual"/>
+  </joint>
+
+<!--  Junta base_link <-> link1-->
+  <joint name="base_link_to_link1" type="continuous">
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0 1"/>
+    <parent link="base_link"/>
+    <child link="link1"/>
+  </joint>
+
+  <!--  Link 2-->
+  <link name="link2">
+    <visual>
+      <origin xyz="1 0 -0.25" />
+      <geometry>
+        <box size="2.0 0.4 0.5"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+
+<!--  Just  to draw the cylinder part of link1-->
+  <link name="link2_visual">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.5" radius="0.2"/>
+      </geometry>
+      <material name="red" />
+    </visual>
+  </link>
+
+      <!--  Junta link2 <-> link2_ visual-->
+  <joint name="link2_to_link2_visual" type="fixed">
+    <origin xyz="0 0 -0.25"/>
+    <parent link="link2"/>
+    <child link="link2_visual"/>
+  </joint>
+
+    <!--  Junta link1 <-> link2-->
+  <joint name="link1_to_link2" type="continuous">
+    <axis xyz="0 0 1"/>
+    <origin xyz="2 0 0"/>
+    <parent link="link1"/>
+    <child link="link2"/>
+  </joint>
+
+      <!--  ee_link-->
+  <link name="ee_link">
+    <visual>
+      <origin xyz="0 0 -0.5" />
+      <geometry>
+        <cylinder length="1" radius="0.1"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+    <!--  Junta ee_link <-> link2-->
+  <joint name="link2_to_ee_link" type="prismatic">
+      <axis xyz="0 0 1"/>
+    <origin xyz="2 0 0"/>
+    <parent link="link2"/>
+    <child link="ee_link"/>
+      <limit effort="1000.0" lower="1" upper="-1" velocity="0.5"/>
+
+  </joint>
+
+</robot>
