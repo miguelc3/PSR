@@ -10,7 +10,7 @@ project(p_mpereira_player)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
-  std_msg
+  std_msgs
   gazebo_msgs
 )
 

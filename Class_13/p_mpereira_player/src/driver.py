@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# Set a goal to our robot - in rviz
+
 import rospy
 from std_msgs.msg import String
 import tf2_ros
@@ -44,8 +46,6 @@ class Driver():
             self.goal_active = False
             rospy.logerr('Could not transform goal from ' + msg.header.frame_id + ' to ' + target_frame + '. Will ignore this goal')
 
-
-        # TODO - verify if goal is in odom frame
         # print('Received new goal')
         # self.goal = copy.copy(msg)  # Store goal
         # self.goal_active = True

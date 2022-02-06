@@ -1,5 +1,18 @@
+<?xml version="1.0"?>
 <launch>
     <!-- Launch config, loading configuration file -->
-    <node name="rviz" pkg="rviz" type="rviz"
-          args="--display-config $(find p_mpereira_bringup)/config/visualize.rviz" required="false"/>
+    <arg name="player_name" default="p_mpereira"/>
+
+<!--    <group ns="$(arg player_name)">-->
+<!--        <param name="tf_prefix" value="$(arg player_name)"/>-->
+        <remap from="/move_base_simple/goal" to="$(arg player_name)/move_base_simple/goal"/>
+        <node name="rviz" pkg="rviz" type="rviz"
+             args="--display-config $(find p_mpereira_bringup)/config/visualize.rviz" required="false"/>
+<!--    </group>-->
+
 </launch>
+
+
+
+
+
