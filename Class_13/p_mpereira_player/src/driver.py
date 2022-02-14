@@ -15,8 +15,16 @@ class Driver():
 
     def __init__(self):
 
+        # Define a goal Pose to witch the robot should move
+        self.goal = PoseStamped()
+        self.goal_active = False
+
+        self.angle = 0
+        self.speed = 0
+        
         self.name = rospy.get_name()
-        self.name = self.name.strip('/')
+        self.name = self.name.strip('/')  # remove intial '/'
+        rospy.loginfo('My player name is ' + self.name)
 
         self.publisher_command = rospy.Publisher('/' + self.name + '/cmd_vel', Twist, queue_size=1)
 
@@ -27,15 +35,11 @@ class Driver():
 
         self.goal_subscriber = rospy.Subscriber('/move_base_simple/goal', PoseStamped, self.goalReceivedCallback)
 
-        self.goal = PoseStamped()
-        self.goal_active = False
-
-        self.angle = 0
-        self.speed = 0
 
     def goalReceivedCallback(self, msg):
 
         print('Received new goal on frame_id ' + msg.header.frame_id)
+
         target_frame = self.name + '/odom'
 
         try:
@@ -50,16 +54,18 @@ class Driver():
         # self.goal = copy.copy(msg)  # Store goal
         # self.goal_active = True
 
-    def driveSraight(self, min_speed = 0.2, max_speed = 1.5):
+    def driveSraight(self, min_speed=0.2, max_speed=1.5):
 
-        goal_copy = copy.deepcopy(self.goal)
+        goal_copy = copy.deepcopy(self.goal)  # make sure we don't change the stamp field of the goal
         goal_copy.header.stamp = rospy.Time.now()
 
         # goal_tf = tf2_geometry_msgs.PoseStamped()
         # goal_tf.header.stamp = rospy.Time.now()
         # goal_tf.header.frame_id = self.goal.header.frame_id
 
+        print('Transforming pose')
         goal_in_base_link = self.tf_buffer.transform(goal_copy, self.name + '/base_footprint', rospy.Duration(1))
+        print('Pose transformed')
 
         x = goal_in_base_link.pose.position.x
         y = goal_in_base_link.pose.position.y
@@ -67,24 +73,27 @@ class Driver():
         self.angle = math.atan2(y, x)
         distance_to_goal = math.sqrt(x ** 2 + y ** 2)
 
-        self.speed = max(min_speed, 0.25 * distance_to_goal)  # Limit min speed
+        self.speed = max(min_speed, 0.5 * distance_to_goal)  # Limit min speed
         self.speed = min(max_speed, self.speed)  # Limit max speed
 
     def sendCommandCallback(self, event):
 
         print('Sending twist command')
+        print(self.goal_active)
 
+        # Decision outputs a speed (linear velocity) and an angle
         if not self.goal_active:  # no goal, no movement
-            self.angle = 0
-            self.speed = 0
+            self.angle = -0.4
+            self.speed = 0.1
         else:
             self.driveSraight()
 
-        # Publish twist message
+        # Build the Twist message
         twist = Twist()
         twist.linear.x = self.speed
         twist.angular.z = self.angle
 
+        # Publish twist message
         self.publisher_command.publish(twist)
 
 
@@ -96,9 +105,6 @@ def main():
     rospy.init_node('p_mpereira', anonymous=False)
 
     driver = Driver()
-
-    rate = rospy.Rate(10)  # Hz
-
     rospy.spin()
 
 

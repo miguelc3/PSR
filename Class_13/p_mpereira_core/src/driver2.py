@@ -25,7 +25,7 @@ class Player:
 
     def __init__(self):
 
-        rospy.init_node('driver', anonymous=False)
+        rospy.init_node('p_mpereira', anonymous=False)
         name = rospy.get_name().strip('/')
         rospy.sleep(0.2)  # make sure the rospy time works
 
