@@ -22,19 +22,19 @@ class Driver():
         self.name = self.name.strip('/')
         rospy.sleep(0.2)
 
-        self.publisher_command = rospy.Publisher('/' + self.name + '/cmd_vel', Twist, queue_size=1)
-        rospy.Subscriber(self.name + "/camera/rgb/image_raw", Image, self.ImageCallback)
-        rospy.Subscriber(self.name + "/scan", LaserScan, self.lidarCallback)
+        # self.publisher_command = rospy.Publisher('/' + self.name + '/cmd_vel', Twist, queue_size=1)
+        # rospy.Subscriber(self.name + "/camera/rgb/image_raw", Image, self.ImageCallback)
+        # rospy.Subscriber(self.name + "/scan", LaserScan, self.lidarCallback)
 
         # Initializa variables
-        self.existImage = False
+        # self.existImage = False
 
         # Segment color limits
         self.blue_limits = {'B': {'max': 255, 'min': 100}, 'G': {'max': 50, 'min': 0}, 'R': {'max': 50, 'min': 0}}
         self.red_limits = {'B': {'max': 50, 'min': 0}, 'G': {'max': 50, 'min': 0}, 'R': {'max': 255, 'min': 100}}
         self.green_limits = {'B': {'max': 50, 'min': 0}, 'G': {'max': 255, 'min': 100}, 'R': {'max': 50, 'min': 0}}
 
-        self.subState = None
+        # self.subState = None
 
         # =============================
         # Decide team
@@ -105,7 +105,6 @@ class Driver():
         pass
         # Just run the code if there is an image
         # if self.existImage:
-
 
 
 def main():

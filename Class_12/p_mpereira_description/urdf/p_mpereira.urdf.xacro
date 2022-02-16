@@ -12,7 +12,7 @@
   <xacro:property name="player_name" value="$(arg player_name)"/>
   <xacro:property name="player_color" value="$(arg player_color)"/>
 
-<!--  Includes-->
+    <!--  Includes-->
   <xacro:include filename="$(find p_mpereira_description)/urdf/properties.xacro"/>
   <xacro:include filename="p_mpereira.gazebo.xacro"/>
 

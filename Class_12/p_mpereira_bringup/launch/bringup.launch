@@ -3,7 +3,8 @@
      <!--  Bloco 1 - Argumentos do launch file-->
      <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
      <arg name="player_name" default="p_mpereira"/>
-     <arg name="player_color" default="Green"/>
+<!--     <arg name="player_color" default="Green"/>-->
+     <arg name="player_color" default="Red"/>
      <arg name="visualize" default="false"/>
      <arg name="x_pos" default="-0.5"/>
      <arg name="y_pos" default="-1.0"/>
@@ -31,5 +32,7 @@
         </group>
 
     </group>
+
+    <rosparam command="load" file="$(find p_mpereira_bringup)/params/game.yaml"/>
 
 </launch>
